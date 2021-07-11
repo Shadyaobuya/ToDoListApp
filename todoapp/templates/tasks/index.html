@@ -1,0 +1,62 @@
+{%load static%}
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>
+To Do List
+        </title>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+
+        <link href="{% static 'styles.css'% }" rel="stylesheet">
+        <style>
+            nav{
+                float: right;
+                /* margin-top: 3%; */
+            }
+             .link{
+                font-size: 20px;
+                color: rgb(190, 190, 17);
+                text-decoration: none;
+                padding:20px ;
+
+            }
+            .link:hover{
+                color: whitesmoke;
+            } 
+            h4{
+                margin-top: 3%;
+            }                                              
+                                  
+
+        </style>
+    </head>
+    <body class="text-warning bg-dark">
+        <nav>
+            <a class="link" href="{%url 'home'%}"> Home</a>
+            <a class="link" href="{%url 'login' %}">Login</a>
+            <a class="link" href="{%url 'logout'%}"> logout</a>
+            
+          </nav>
+        <h4 >Welcome back {{request.user.first_name}}</h4>
+       
+        <ol> 
+           
+            {% for task in all_tasks %}
+           
+                    <li class="text-warning bg-secondary"> {{ task}}</li><br>
+              
+        
+            {%endfor%}
+        </ol>
+
+
+        <a href ="{% url 'addtask' %}">Add new task</a>
+        
+
+   
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
+    </body>
+
+</html>
