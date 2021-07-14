@@ -1,4 +1,5 @@
 from django.contrib import auth
+from django.contrib.auth import models
 from django.http.response import HttpResponseRedirect
 from django.shortcuts import render
 from django import forms
@@ -7,6 +8,9 @@ from django.contrib.auth import authenticate,login,logout
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib import messages
 from .forms import UserForm
+from .models import Task
+from django.contrib.auth.models import User
+
 
 
 
@@ -50,24 +54,38 @@ def signup(request):
             'form':user_form
         })
 def my_tasks(request):
-    if "list_of_tasks" not in request.session:
-        request.session["list_of_tasks"]=[]
-    return render(request,'tasks/index.html',{
-        "all_tasks":request.session["list_of_tasks"]
+    # if "" not in request.session:
+    k=Task.objects.all()
+    # k=model_to_dict(k)
+    # request.session[""]=k
+    # if "" not in request.session:
+    #     request.session[""]=[]
+
+    return render (request,'tasks/index.html',{
+        "all_tasks":k
     })
+
+    
+
+    # if "list_of_tasks" not in request.session:
+    #     request.session["list_of_tasks"]=[]
+    # return render(request,'tasks/index.html',{
+    #     "all_tasks":request.session["list_of_tasks"]
+    # })
 
 
 def addTask(request):
     if request.method=="POST":
         form_data=NewTask(request.POST)
         if form_data.is_valid():
-            task_entered=form_data.cleaned_data["task"]
-            duration=form_data.cleaned_data["duration"]
-                
-            request.session["list_of_tasks"]+=[f"{task_entered}..............{duration} Mins"]
-            # list_of_tasks.append(f"{task_entered}..............{duration} Mins")
+            # task_entered=form_data.cleaned_data["task"]
+            # duration=form_data.cleaned_data["duration"]
+            Task.objects.create(
+                task=request.POST.get("task"),
+                priority=request.POST.get("priority"),
+                duration=request.POST.get("duration")
 
-            # list_of_tasks.append(data)
+            )
             return HttpResponseRedirect(reverse("index"))
         else:
             return render(request,"tasks/addtask.html",{"form":form_data})
