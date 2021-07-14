@@ -9,11 +9,6 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib import messages
 from .forms import UserForm
 from .models import Task
-<<<<<<< HEAD
-=======
-from django.contrib.auth.models import User
-
->>>>>>> 77f5f6639a9f979429a2f888a4e49322804f60c2
 
 
 
@@ -58,23 +53,11 @@ def signup(request):
 
 
 def my_tasks(request):
-<<<<<<< HEAD
     view_tasks=Task.objects.all()
     # if "list_of_tasks" not in request.session:
     #     request.session["list_of_tasks"]=[]
     return render(request,'tasks/index.html',{
         "all_tasks":view_tasks
-=======
-    # if "" not in request.session:
-    k=Task.objects.all()
-    # k=model_to_dict(k)
-    # request.session[""]=k
-    # if "" not in request.session:
-    #     request.session[""]=[]
-
-    return render (request,'tasks/index.html',{
-        "all_tasks":k
->>>>>>> 77f5f6639a9f979429a2f888a4e49322804f60c2
     })
 
     
