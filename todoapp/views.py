@@ -8,7 +8,7 @@ from django.contrib.auth import authenticate,login,logout
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib import messages
 from .forms import UserForm
-from .models import Task
+# from .models import Task
 
 
 
