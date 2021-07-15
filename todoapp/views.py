@@ -53,11 +53,11 @@ def signup(request):
 
 
 def my_tasks(request):
-    view_tasks=Task.objects.all()
-    # if "list_of_tasks" not in request.session:
-    #     request.session["list_of_tasks"]=[]
+    # view_tasks=Task.objects.all()
+    if "list_of_tasks" not in request.session:
+        request.session["list_of_tasks"]=[]
     return render(request,'tasks/index.html',{
-        "all_tasks":view_tasks
+        "all_tasks":request.session["list_of_tasks"]
     })
 
     
@@ -73,18 +73,18 @@ def addTask(request):
     if request.method=="POST":
         form_data=NewTask(request.POST)
         if form_data.is_valid():
-            # task_entered=form_data.cleaned_data["task"]
-            # duration=form_data.cleaned_data["duration"]
-            Task.objects.create(
-                task=request.POST.get("task"),
-                priority=request.POST.get("priority"),
-                duration=request.POST.get("duration")
+            task_entered=form_data.cleaned_data["task"]
+            duration=form_data.cleaned_data["duration"]
+            # Task.objects.create(
+            #     task=request.POST.get("task"),
+            #     priority=request.POST.get("priority"),
+            #     duration=request.POST.get("duration")
 
-            )
-            return HttpResponseRedirect(reverse("index"))
-                
-            # request.session["list_of_tasks"]+=[f"{task_entered}..............{duration} Mins"]
+            # )
             # return HttpResponseRedirect(reverse("index"))
+                
+            request.session["list_of_tasks"]+=[f"{task_entered}..............{duration} Mins"]
+            return HttpResponseRedirect(reverse("index"))
         else:
             return render(request,"tasks/addtask.html",{"form":form_data})
     
